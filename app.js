@@ -10,7 +10,8 @@ var passport = require('passport');
 passport.use(new GitHubStrategy({
         clientID: 'b184a671f543c260d055',//GITHUB_CLIENT_ID,
         clientSecret: 'ac6454f9c250c951d1000a9e6bc311762216834c',//GITHUB_CLIENT_SECRET,
-        callbackURL: "http://vvv.msk0.ru/auth/github/callback"
+        callbackURL: "http://vvv.msk0.ru/auth/github/callback",
+        customHeaders: { "User-Agent": "vodolaz095" }
     },
     function(accessToken, refreshToken, profile, done) {
             return done(null, profile);
@@ -20,7 +21,7 @@ passport.use(new GitHubStrategy({
 passport.use(new OdeskStrategy({
         consumerKey: 'f448b92c4aaf8918c0106bd164a1656',
         consumerSecret: 'e6a71b4f05467054',
-        callbackURL: "http://vvv.msk0.ru/auth/odesk/callback"
+        callbackURL: "http://127.0.0.1:3000/auth/odesk/callback"
     },
     function(token, tokenSecret, profile, done) {
             return done(null, profile);
