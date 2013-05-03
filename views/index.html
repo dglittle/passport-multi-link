@@ -1,0 +1,7 @@
+<h1>Please authorize</h1>
+<p>
+    {{^github}}<a href="/auth/github">Github</a>{{/github}}
+    {{#github}}Welcome, {{username}}!{{/github}}
+</p>
+
+<p><a href="/auth/odesk">Odesk</a></p>
