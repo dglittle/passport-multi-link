@@ -13,9 +13,20 @@ passport.use(new GitHubStrategy({
         callbackURL: "http://vvv.msk0.ru/auth/github/callback"
     },
     function(accessToken, refreshToken, profile, done) {
-            return done(err, profile);
+            return done(null, profile);
     }
 ));
+
+passport.use(new OdeskStrategy({
+        consumerKey: 'f448b92c4aaf8918c0106bd164a1656',
+        consumerSecret: 'e6a71b4f05467054',
+        callbackURL: "http://vvv.msk0.ru/auth/odesk/callback"
+    },
+    function(token, tokenSecret, profile, done) {
+            return done(null, profile);
+    }
+));
+
 
 passport.serializeUser(function(user, done) {
     done(null, user);
@@ -63,19 +74,56 @@ app.configure(function () {
         app.use(express.errorHandler());
     });
 
-//static pages
+
     app.get('/', function(request,response){
-        console.log(request.uesr);
-        response.render('index',{"github":request.user});
+        console.log(request.user);
+        response.render('index',
+            {
+                "user":request.user,
+                "github":request.session.github,
+                "odesk":request.session.odesk
+
+            }
+        );
+    });
+
+    app.get('/logout',function(request,response){
+        request.session.odesk=null;
+        request.session.github=null;
+        request.logout();
+        response.redirect('/')
     });
 
     app.get('/auth/github',passport.authenticate('github'));
     app.get('/auth/github/callback',
         passport.authenticate('github', { failureRedirect: '/' }),
-        function(req, res) {
+        function(request, response) {
             // Successful authentication, redirect home.
-            res.redirect('/');
+            request.session.github=request.user;
+            response.redirect('/');
         });
+    app.get('/logoffgithub',function(request,response){
+        delete request.session.github;
+        request.session.github=null;
+        response.redirect('/');
+    });
+
+
+    app.get('/auth/odesk',passport.authenticate('odesk'));
+    app.get('/auth/odesk/callback',
+        passport.authenticate('odesk', { failureRedirect: '/' }),
+        function(request, response) {
+            // Successful authentication, redirect home.
+            request.session.odesk=request.user;
+            response.redirect('/');
+        });
+    app.get('/logoffodesk',function(request,response){
+        delete request.session.odesk;
+        request.session.odesk=null;
+        response.redirect('/');
+    });
+
+
 
 
 });

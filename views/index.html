@@ -1,7 +1,16 @@
 <h1>Please authorize</h1>
+
+
 <p>
-    {{^github}}<a href="/auth/github">Github</a>{{/github}}
-    {{#github}}Welcome, {{username}}!{{/github}}
+    {{^github}}<a href="/auth/github">Login via Github</a>{{/github}}
+    {{#github}}Welcome, {{displayName}}! <a href="/logoffgithub">Log out from Github!</a>{{/github}}
 </p>
 
-<p><a href="/auth/odesk">Odesk</a></p>
+<p>
+    {{^odesk}}<a href="/auth/odesk">Login via Odesk</a>{{/odesk}}
+    {{#odesk}}Welcome, {{displayName}}! <a href="/logoffodesk">Log out from Odesk!</a>{{/odesk}}
+</p>
+
+{{#user}}
+<p><a href="logout">Logout</a></p>
+{{/user}}
