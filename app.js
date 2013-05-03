@@ -9,13 +9,11 @@ var express = require('express'),
 var passport = require('passport');
 passport.use(new GitHubStrategy({
         clientID: 'b184a671f543c260d055',//GITHUB_CLIENT_ID,
-        clientSecret: 'c12806b0ae69cb61188e3e982b466fa417a27423',//GITHUB_CLIENT_SECRET,
-        callbackURL: "http://127.0.0.1:3000/auth/github/callback"
+        clientSecret: 'ac6454f9c250c951d1000a9e6bc311762216834c',//GITHUB_CLIENT_SECRET,
+        callbackURL: "http://vvv.msk0.ru/auth/github/callback"
     },
     function(accessToken, refreshToken, profile, done) {
-        User.findOrCreate({ githubId: profile.id }, function (err, user) {
-            return done(err, user);
-        });
+            return done(err, profile);
     }
 ));
 
