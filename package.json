@@ -1,0 +1,34 @@
+{
+    "name":"passport-multi-link",
+    "version":"0.0.1",
+    "description":"Multilogin application",
+    "main":"app.js",
+    "scripts":{
+        "test":"exit 1"
+    },
+    "repository":{
+        "type":"git",
+        "url":"https://github.com/vodolaz095/passport-multi-link.git"
+    },
+    "keywords":[
+        "passport",
+        "odesk",
+        "github",
+        "multilogin"
+    ],
+    "author":"Anatolij Ostroumov",
+    "license":"MIT",
+    "readmeFilename":"README.md",
+    "engines":{
+        "node":"0.10.x",
+        "npm":"1.2.x"
+    },
+    "dependencies":{
+        "async":"*",
+        "express":"3.x",
+        "hogan-express":"*",
+        "passport":"*",
+        "passport-github":"*",
+        "passport-odesk":"*"
+    }
+}
