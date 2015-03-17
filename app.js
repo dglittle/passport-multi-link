@@ -66,6 +66,13 @@ app.configure(function () {
     app.use(passport.initialize());
     app.use(passport.session());
 
+    app.use(function (req, res, next) {
+        if (!req.user) req.user = {}
+        req.user.github = req.session.github
+        req.user.odesk = req.session.odesk
+        next()
+    })
+
 //other middlewares
     app.use(express.static(path.join(__dirname, 'public')));
     app.use(app.router);
@@ -81,8 +88,8 @@ app.configure(function () {
         response.render('index',
             {
                 "user":request.user,
-                "github":request.session.github,
-                "odesk":request.session.odesk
+                "github":request.user.github,
+                "odesk":request.user.odesk
 
             }
         );
